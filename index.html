@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LeadOS - The Future of Client Discovery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-container": "#1d1b1a",
+                        "on-primary": "#ffffff",
+                        "outline": "#747878",
+                        "surface-tint": "#5f5e5e",
+                        "inverse-primary": "#c9c6c5",
+                        "on-secondary-fixed": "#151c27",
+                        "on-surface": "#1c1b1b",
+                        "surface-bright": "#fdf8f8",
+                        "secondary": "#585f6c",
+                        "surface": "#fdf8f8",
+                        "inverse-on-surface": "#f4f0ef",
+                        "surface-container-high": "#ebe7e6",
+                        "on-primary-container": "#858383",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e5e2e1",
+                        "tertiary-fixed": "#e6e1df",
+                        "surface-dim": "#ddd9d8",
+                        "tertiary-fixed-dim": "#cac6c3",
+                        "secondary-fixed-dim": "#c0c7d6",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#dce2f3",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#444748",
+                        "on-primary-fixed": "#1c1b1b",
+                        "primary-fixed": "#e5e2e1",
+                        "on-primary-fixed-variant": "#474646",
+                        "surface-variant": "#e5e2e1",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "secondary-fixed": "#dce2f3",
+                        "on-background": "#1c1b1b",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed-variant": "#484645",
+                        "background": "#fdf8f8",
+                        "outline-variant": "#c4c7c7",
+                        "surface-container": "#f1edec",
+                        "on-tertiary-container": "#868381",
+                        "on-secondary-container": "#5e6572",
+                        "surface-container-low": "#f7f3f2",
+                        "primary": "#000000",
+                        "on-tertiary-fixed": "#1d1b1a",
+                        "primary-container": "#1c1b1b",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#313030",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#404754",
+                        "error-container": "#ffdad6"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "4xl": "2rem"
+                    },
+                    spacing: {
+                        "base-unit": "8px",
+                        "container-max": "1200px",
+                        "grid-gutter": "24px",
+                        "section-gap-desktop": "160px",
+                        "section-gap-mobile": "80px"
+                    },
+                    fontFamily: {
+                        "code": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-xl": ["Inter"],
+                        "display-xl-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    fontSize: {
+                        "code": ["14px", { lineHeight: "1.5", letterSpacing: "0", fontWeight: "400" }],
+                        "headline-lg": ["48px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "600" }],
+                        "body-lg": ["18px", { lineHeight: "1.6", letterSpacing: "0", fontWeight: "400" }],
+                        "headline-md": ["30px", { lineHeight: "1.4", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "body-md": ["16px", { lineHeight: "1.6", letterSpacing: "0", fontWeight: "400" }],
+                        "display-xl": ["72px", { lineHeight: "1.1", letterSpacing: "-0.04em", fontWeight: "700" }],
+                        "display-xl-mobile": ["40px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "label-md": ["14px", { lineHeight: "1", letterSpacing: "0.02em", fontWeight: "500" }],
+                        "headline-lg-mobile": ["32px", { lineHeight: "1.3", letterSpacing: "-0.01em", fontWeight: "600" }]
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 2s infinite',
+                        'float-slow': 'float 8s ease-in-out 1s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #fdf8f8;
+            color: #1c1b1b;
+            overflow-x: hidden;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glass-nav {
+            background: rgba(253, 248, 248, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .phone-shadow {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar -->
+<nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-container rounded-full px-6 py-3 z-50 glass-nav border-b border-outline-variant/30 shadow-sm flex justify-between items-center mx-auto transition-all duration-300">
+<a class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+            LeadOS
+        </a>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary hover:opacity-80 transition-opacity duration-300" href="#features">Features</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary hover:opacity-80 transition-opacity duration-300" href="#pricing">Pricing</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary hover:opacity-80 transition-opacity duration-300" href="#faq">FAQ</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary hover:opacity-80 transition-opacity duration-300" href="#contact">Contact</a>
+</div>
+<a class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-full hover:bg-surface-tint transition-colors duration-300 flex items-center gap-2 scale-95 active:scale-90" href="#">
+            Launch on Telegram
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</nav>
+<!-- Hero Section -->
+<section class="pt-40 pb-20 px-6 md:px-8 max-w-container mx-auto text-center relative overflow-hidden flex flex-col items-center">
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-secondary-container/30 rounded-full blur-[100px] mix-blend-multiply opacity-50"></div>
+<div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-primary-fixed/40 rounded-full blur-[80px] mix-blend-multiply opacity-50"></div>
+</div>
+<div class="relative z-10 max-w-4xl mx-auto reveal active">
+<h1 class="font-display-xl-mobile md:font-display-xl text-primary mb-6 tracking-tight">The Future of Client Discovery Starts Here.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-12">Find real businesses and YouTube channels worldwide. Get contact details, ratings, AI-powered outreach, and lead scoring \- all inside Telegram.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+<a class="bg-primary text-on-primary font-label-md text-label-md px-8 py-4 rounded-full hover:bg-surface-tint transition-all duration-300 flex items-center gap-2 w-full sm:w-auto justify-center" href="#">
+                    Start Searching Free
+                </a>
+<a class="bg-transparent border border-outline-variant text-on-surface font-label-md text-label-md px-8 py-4 rounded-full hover:bg-surface-container transition-all duration-300 w-full sm:w-auto text-center" href="#how-it-works">
+                    See How It Works
+                </a>
+</div>
+</div>
+<!-- Floating Phones -->
+<div class="relative w-full max-w-5xl mx-auto mt-24 h-[600px] hidden md:block reveal">
+<!-- Left Phone (LeadOS Dashboard) -->
+<div class="absolute left-0 top-12 w-[280px] h-[580px] rounded-[2.5rem] bg-surface border-8 border-tertiary-container phone-shadow overflow-hidden transform -rotate-6 animate-float-delayed z-10">
+<img class="w-full h-full object-cover" alt="LeadOS Telegram bot dashboard showing a welcome message, account details (name, plan, credits) and quick start options including search leads, agent, and help." src="./images/hero-dashboard.jpg"/>
+</div>
+<!-- Center Phone (Start Bot Welcome) -->
+<div class="absolute left-1/2 -translate-x-1/2 top-0 w-[320px] h-[650px] rounded-[3rem] bg-surface border-[10px] border-tertiary-container phone-shadow overflow-hidden animate-float z-30">
+<img class="w-full h-full object-cover" alt="LeadOS Telegram bot welcome screen with a description of the bot's purpose and a prominent Start Bot button at the bottom." src="./images/hero-start-bot.jpg"/>
+</div>
+<!-- Right Phone (Search Configuration) -->
+<div class="absolute right-0 top-20 w-[280px] h-[580px] rounded-[2.5rem] bg-surface border-8 border-tertiary-container phone-shadow overflow-hidden transform rotate-6 animate-float-slow z-20">
+<img class="w-full h-full object-cover" alt="LeadOS Map & Shops Search configuration screen with filters for category, country, rating, reviews, website/phone/email requirements and max results, plus Run Search and Reset buttons." src="./images/hero-search-config.jpg"/>
+</div>
+</div>
+<!-- Mobile Fallback Image -->
+<div class="mt-16 w-full max-w-sm mx-auto md:hidden reveal">
+<div class="w-full h-[600px] rounded-[3rem] bg-surface border-[8px] border-tertiary-container phone-shadow overflow-hidden relative">
+<img class="w-full h-full object-cover" alt="LeadOS Telegram bot dashboard on a smartphone showing the welcome message, account details, and quick start action buttons." src="./images/hero-dashboard.jpg"/>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-12 border-y border-outline-variant/30 bg-surface-container-low">
+<div class="max-w-container mx-auto px-6 md:px-8">
+<div class="flex flex-wrap justify-center gap-8 md:gap-16 text-center">
+<div class="reveal">
+<span class="material-symbols-outlined text-4xl text-primary mb-2">bolt</span>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Lightning Fast</p>
+</div>
+<div class="hidden md:block w-px h-12 bg-outline-variant/50"></div>
+<div class="reveal">
+<span class="material-symbols-outlined text-4xl text-primary mb-2">download</span>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">CSV Export</p>
+</div>
+<div class="hidden md:block w-px h-12 bg-outline-variant/50"></div>
+<div class="reveal">
+<span class="material-symbols-outlined text-4xl text-primary mb-2">map</span>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Google Maps</p>
+</div>
+<div class="hidden md:block w-px h-12 bg-outline-variant/50"></div>
+<div class="reveal">
+<span class="material-symbols-outlined text-4xl text-primary mb-2">smart_display</span>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">YouTube</p>
+</div>
+<div class="hidden md:block w-px h-12 bg-outline-variant/50"></div>
+<div class="reveal">
+<span class="material-symbols-outlined text-4xl text-primary mb-2">send</span>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Telegram First</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-[160px] px-6 md:px-8 max-w-container mx-auto" id="features">
+<div class="text-center mb-16 reveal">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-primary mb-4">Precision Tools Built In</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Everything you need to find, filter, and export leads without leaving your favorite app.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+<!-- Card 1 -->
+<div class="col-span-1 md:col-span-2 row-span-1 bg-surface-container rounded-3xl p-8 relative overflow-hidden group reveal">
+<div class="relative z-10 w-full md:w-1/2">
+<span class="material-symbols-outlined text-3xl mb-4 text-primary">map</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Google Maps Search</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Extract local businesses globally with precise location and category filters.</p>
+</div>
+<div class="absolute right-0 top-0 bottom-0 w-1/2 hidden md:block opacity-20 group-hover:opacity-40 transition-opacity duration-500">
+<div class="bg-cover bg-center w-full h-full" alt="Stylized map interface with location pins marking business extraction areas." style="background-image: url('./images/hero-search-config.jpg')"></div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="col-span-1 row-span-1 bg-surface-container rounded-3xl p-8 reveal flex flex-col justify-between">
+<span class="material-symbols-outlined text-3xl mb-4 text-primary">smart_display</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">YouTube Search</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Find creators and channels instantly.</p>
+</div>
+</div>
+<!-- Card 3 (Image focus) -->
+<div class="col-span-1 row-span-2 bg-surface-container rounded-3xl p-0 relative overflow-hidden reveal">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 flex items-end p-8">
+<h3 class="font-headline-md text-headline-md text-on-primary">Smart Filters</h3>
+</div>
+<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" alt="Close-up of the LeadOS mobile app showing advanced search configuration filters including Category, Country, and Minimum Rating." src="./images/hero-search-config.jpg"/>
+</div>
+<!-- Card 4 -->
+<div class="col-span-1 row-span-1 bg-surface-container rounded-3xl p-8 reveal">
+<span class="material-symbols-outlined text-3xl mb-4 text-primary">bookmark</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Save Leads</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Build your database securely.</p>
+</div>
+<!-- Card 5 -->
+<div class="col-span-1 row-span-1 bg-surface-container rounded-3xl p-8 reveal">
+<span class="material-symbols-outlined text-3xl mb-4 text-primary">download</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Export CSV</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Ready for your CRM.</p>
+</div>
+<!-- Card 6 -->
+<div class="col-span-1 md:col-span-2 row-span-1 bg-primary text-on-primary rounded-3xl p-8 flex items-center justify-between reveal overflow-hidden relative">
+<div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined text-3xl mb-4 text-on-primary">bolt</span>
+<h3 class="font-headline-md text-headline-md text-on-primary mb-2">Lightning Fast</h3>
+<p class="font-body-md text-body-md text-on-primary/80">Just tell the AI what you need \- it searches, scores, enriches, and writes outreach messages automatically.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Product Section -->
+<section class="py-[160px] px-6 md:px-8 max-w-container mx-auto overflow-hidden">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<!-- Editorial Text -->
+<div class="reveal">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-primary mb-6">A Powerful Engine in Your Pocket.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8">LeadOS abstracts complex scraping architectures into a simple conversational interface. Tell the bot what you need, configure your parameters visually, and watch it aggregate clean, actionable data instantly.</p>
+<ul class="space-y-6">
+<li class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">chat</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary font-bold mb-1">Conversational UI</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">No new apps to install. Just talk to LeadOS on Telegram.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">tune</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary font-bold mb-1">Visual Configuration</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Tap to adjust filters, limits, and locations seamlessly.</p>
+</div>
+</li>
+</ul>
+</div>
+<!-- Floating Devices Composition -->
+<div class="relative h-[600px] hidden lg:block perspective-1000">
+<!-- Main Device -->
+<div class="absolute right-20 top-0 w-[300px] h-[600px] rounded-[3rem] bg-surface border-[10px] border-tertiary-container phone-shadow overflow-hidden z-20 animate-float">
+<img class="w-full h-full object-cover" alt="LeadOS search configuration screen on a smartphone showing category, country, and location filter inputs in a clean light-mode layout." src="./images/hero-search-config.jpg"/>
+</div>
+<!-- Secondary Device Bottom Left -->
+<div class="absolute right-[280px] bottom-10 w-[220px] h-[450px] rounded-[2.5rem] bg-surface border-8 border-tertiary-container phone-shadow overflow-hidden z-30 transform -rotate-12 translate-z-12 animate-float-delayed">
+<img class="w-full h-full object-cover" alt="LeadOS Telegram bot dashboard showing the welcome message, account details, and quick start action buttons." src="./images/hero-dashboard.jpg"/>
+</div>
+<!-- Tertiary Device Top Right -->
+<div class="absolute -right-10 top-20 w-[200px] h-[400px] rounded-[2rem] bg-surface border-[6px] border-tertiary-container phone-shadow overflow-hidden z-10 transform rotate-6 animate-float-slow opacity-80">
+<img class="w-full h-full object-cover" alt="LeadOS bot welcome screen with a description of the bot's purpose and a Start Bot button." src="./images/hero-start-bot.jpg"/>
+</div>
+</div>
+<!-- Mobile Fallback -->
+<div class="w-full max-w-sm mx-auto lg:hidden reveal mt-8">
+<div class="w-full h-[500px] rounded-[3rem] bg-surface border-[8px] border-tertiary-container phone-shadow overflow-hidden relative">
+<img class="w-full h-full object-cover" alt="LeadOS mobile app search configuration screen showing filter inputs for category and location." src="./images/hero-search-config.jpg"/>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works (Timeline) -->
+<section class="py-[160px] bg-surface-container-low px-6 md:px-8" id="how-it-works">
+<div class="max-w-container mx-auto">
+<div class="text-center mb-20 reveal">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-primary mb-4">Three Steps to Discovery</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Simple, fast, and remarkably effective.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+<!-- Connecting Line Desktop -->
+<div class="hidden md:block absolute top-1/2 left-[10%] right-[10%] h-0.5 bg-outline-variant/30 -translate-y-1/2 z-0"></div>
+<!-- Step 1 -->
+<div class="relative z-10 bg-surface rounded-3xl p-8 border border-outline-variant/20 shadow-sm reveal flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xl mb-6">1</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4 text-xl">Choose Source</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Select Google Maps, YouTube, or other supported platforms.</p>
+<div class="w-full h-32 bg-surface-container rounded-xl overflow-hidden border border-outline-variant/20">
+<img class="w-full h-full object-cover object-top opacity-80" alt="Close-up of the LeadOS mobile app menu showing data source options like Google Maps and YouTube in a clean list." src="./images/choose-source.jpg"/>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative z-10 bg-surface rounded-3xl p-8 border border-outline-variant/20 shadow-sm reveal flex flex-col items-center text-center delay-[200ms]">
+<div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xl mb-6">2</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4 text-xl">Configure Filters</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Set specific categories, locations, and data requirements visually.</p>
+<div class="w-full h-32 bg-surface-container rounded-xl overflow-hidden border border-outline-variant/20">
+<img class="w-full h-full object-cover object-center opacity-80" alt="Close-up of configuration inputs on the LeadOS mobile app showing specific filter settings for category and location." src="./images/configure-filters.jpg"/>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative z-10 bg-surface rounded-3xl p-8 border border-outline-variant/20 shadow-sm reveal flex flex-col items-center text-center delay-[400ms]">
+<div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xl mb-6">3</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4 text-xl">Discover Clients</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Get a clean list of verified leads ready for outreach.</p>
+<div class="w-full h-32 bg-surface-container rounded-xl overflow-hidden border border-outline-variant/20">
+<img class="w-full h-full object-cover object-bottom opacity-80" alt="Close-up of structured search results on the LeadOS mobile app showing generated business leads." src="./images/discover-clients.jpg"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="py-[160px] px-6 md:px-8 max-w-container mx-auto" id="pricing">
+<div class="text-center mb-16 reveal">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-primary mb-4">Simple, Transparent Pricing</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Start for free, scale when you need more power.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+<!-- Free Tier -->
+<div class="bg-surface border border-outline-variant/30 rounded-3xl p-8 shadow-sm reveal">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Free</h3>
+<div class="font-display-xl-mobile text-primary mb-6">$0<span class="text-lg text-on-surface-variant font-normal">/mo</span></div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 h-12">Perfect for exploring the platform.</p>
+<ul class="space-y-4 mb-8 font-body-md text-body-md text-on-surface-variant">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> 500 Credits per month</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> Basic Filters</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> Basic Search & Filters</li>
+</ul>
+<a class="block w-full py-3 px-6 text-center border border-outline-variant rounded-full font-label-md text-label-md hover:bg-surface-container transition-colors" href="https://t.me/LeadOS_CoBot" target="_blank">Start Free</a>
+</div>
+<!-- Pro Tier (Inverted) -->
+<div class="bg-tertiary text-on-tertiary rounded-[2.5rem] p-10 shadow-xl reveal transform md:-translate-y-4 relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-primary-container text-on-primary-container text-xs font-bold px-3 py-1 rounded-bl-lg">POPULAR</div>
+<h3 class="font-headline-md text-headline-md text-on-tertiary mb-2">Marketing Pro</h3>
+<div class="font-display-xl-mobile text-on-tertiary mb-6">$49<span class="text-lg text-on-tertiary/60 font-normal">/mo</span></div>
+<p class="font-body-md text-body-md text-on-tertiary/80 mb-8 h-12">For serious lead generation.</p>
+<ul class="space-y-4 mb-8 font-body-md text-body-md text-on-tertiary/90">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">check</span> 2000 Credits per day</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">check</span> Advanced Filters & Bulk Export</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">check</span> CSV, Excel & JSON Export</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">check</span> Priority AI Agent & Support</li>
+</ul>
+<a class="block w-full py-4 px-6 text-center bg-on-tertiary text-tertiary rounded-full font-label-md text-label-md font-bold hover:bg-surface-variant transition-colors" href="https://t.me/LeadOS_CoBot" target="_blank">Upgrade to Pro</a>
+</div>
+<!-- Freelancer Tier -->
+<div class="bg-surface border border-outline-variant/30 rounded-3xl p-8 shadow-sm reveal">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Freelancer</h3>
+<div class="font-display-xl-mobile text-primary mb-6">$5<span class="text-lg text-on-surface-variant font-normal">/mo</span></div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 h-12">Essential tools for individuals.</p>
+<ul class="space-y-4 mb-8 font-body-md text-body-md text-on-surface-variant">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> 300 Credits per day</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> Advanced Filters</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">check</span> CSV Export</li>
+</ul>
+<a class="block w-full py-3 px-6 text-center border border-outline-variant rounded-full font-label-md text-label-md hover:bg-surface-container transition-colors" href="https://t.me/LeadOS_CoBot" target="_blank">Start Freelancer</a>
+</div>
+</div>
+</section>
+<!-- Trust Section -->
+<section class="py-20 border-t border-outline-variant/30 bg-surface">
+<div class="max-w-container mx-auto px-6 md:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center reveal">
+<div>
+<span class="material-symbols-outlined text-3xl text-on-surface-variant mb-3">shield</span>
+<h4 class="font-label-md text-label-md text-primary font-bold">Privacy First</h4>
+</div>
+<div>
+<span class="material-symbols-outlined text-3xl text-on-surface-variant mb-3">lock</span>
+<h4 class="font-label-md text-label-md text-primary font-bold">Secure Payments</h4>
+</div>
+<div>
+<span class="material-symbols-outlined text-3xl text-on-surface-variant mb-3">public</span>
+<h4 class="font-label-md text-label-md text-primary font-bold">Public Data Only</h4>
+</div>
+<div>
+<span class="material-symbols-outlined text-3xl text-on-surface-variant mb-3">send</span>
+<h4 class="font-label-md text-label-md text-primary font-bold">Telegram First</h4>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-tertiary dark:bg-tertiary-container text-on-tertiary dark:text-on-tertiary-container w-full py-20 px-8 border-t border-outline/20 no-shadows">
+<div class="max-w-container mx-auto grid grid-cols-2 md:grid-cols-4 gap-grid-gutter mb-16">
+<div class="col-span-2 md:col-span-1">
+<a class="font-headline-md text-headline-md font-black text-on-tertiary mb-6 block" href="#">LeadOS</a>
+<p class="font-body-md text-body-md text-on-tertiary/60 mb-6 max-w-xs">The Future of Client Discovery. Find leads, score them, and craft outreach \- all inside Telegram.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-on-tertiary mb-4">Product</h4>
+<ul class="space-y-3">
+<li><a class="font-label-md text-label-md text-on-tertiary/60 hover:text-on-tertiary transition-colors" href="#">Features</a></li>
+<li><a class="font-label-md text-label-md text-on-tertiary/60 hover:text-on-tertiary transition-colors" href="#">Pricing</a></li>
+<li><a class="font-label-md text-label-md text-on-tertiary/60 hover:text-on-tertiary transition-colors" href="#">Security</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-on-tertiary mb-4">Legal</h4>
+<ul class="space-y-3">
+<li><a class="font-label-md text-label-md text-on-tertiary/60 hover:text-on-tertiary transition-colors" href="#">Privacy</a></li>
+<li><a class="font-label-md text-label-md text-on-tertiary/60 hover:text-on-tertiary transition-colors" href="#">Terms</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-on-tertiary mb-4">Social</h4>
+<ul class="space-y-3">
+<li><a class="font-label-md text-label-md text-on-tertiary/60 hover:text-on-tertiary transition-colors" href="https://t.me/LeadOS_Co" target="_blank">Telegram Channel</a></li>
+<li><a class="font-label-md text-label-md text-on-tertiary/60 hover:text-on-tertiary transition-colors" href="mailto:leadosofficial@gmail.com">Email Us</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-container mx-auto pt-8 border-t border-outline/20">
+<p class="font-body-md text-body-md text-on-tertiary/60 text-center">© 2026 LeadOS. All rights reserved. Precision client discovery.</p>
+</div>
+</footer>
+<!-- Scroll Reveal Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 100;
+
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Trigger on load
+        });
+    </script>
+</body></html>
