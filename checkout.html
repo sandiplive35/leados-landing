@@ -39,30 +39,26 @@
   </div>
 </div>
 
+<!-- Paddle.js — automatically detects _ptxn parameter in URL and opens checkout -->
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <script>
   // =================================================================
   //  LEADOS CHECKOUT PAGE
-  //  Bot sends: /checkout.html?plan=freelancer&reference=xxx&tg=12345
-  //  This page opens the Paddle.js overlay checkout.
+  //  =================================================================
+  //  This page receives users from Paddle's transaction API.
+  //  Paddle appends ?_ptxn=txn_xxx to the URL. Paddle.js automatically
+  //  detects this parameter and opens the checkout overlay.
+  //
+  //  Flow: Bot creates transaction → Paddle returns checkout URL →
+  //  user opens URL → this page loads → Paddle.js detects _ptxn →
+  //  checkout overlay opens → user pays → webhook fires → bot upgrades.
   // =================================================================
 
   var PADDLE_CONFIG = {
     clientToken: 'live_abe44b07b980b548ce8dba106cb',
     environment: 'production',
-    botUrl: 'https://t.me/LeadOS_CoBot',
-    successRedirect: 'https://t.me/LeadOS_CoBot?start=activate',
-    plans: {
-      freelancer: { name: 'Researcher', price: 5, priceId: 'pri_01kxfzms96hf32fhex7r61p7nd' },
-      marketing_pro: { name: 'Pro Research', price: 49, priceId: 'pri_01kxfzthwv0dddcbvvntpy42k0' }
-    }
+    botUrl: 'https://t.me/LeadOS_CoBot'
   };
-
-  // Read plan + reference from URL
-  var params = new URLSearchParams(window.location.search);
-  var plan = params.get('plan') || params.get('p');
-  var reference = params.get('reference') || params.get('ref') || ('paddle_' + plan + '_' + Date.now().toString(36));
-  var telegramId = params.get('tg') || params.get('telegram_id') || 'unknown';
 
   function showError(msg) {
     document.getElementById('loading').classList.add('hidden');
@@ -70,58 +66,60 @@
     document.getElementById('error-message').textContent = msg;
   }
 
-  function openCheckout() {
-    var planConfig = PADDLE_CONFIG.plans[plan];
-    if (!planConfig) {
-      showError('Invalid plan. Use /upgrade in the Telegram bot.');
-      return;
+  // Initialize Paddle — Paddle.js will automatically detect _ptxn in the URL
+  // and open the checkout overlay for that transaction.
+  Paddle.Initialize({
+    token: PADDLE_CONFIG.clientToken,
+    environment: PADDLE_CONFIG.environment,
+    eventCallback: function(data) {
+      console.log('Paddle event:', data.name);
+      if (data.name === 'checkout.completed') {
+        // Payment successful — show success state
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('success').classList.remove('hidden');
+        // Redirect to bot after 2 seconds
+        setTimeout(function() {
+          window.location.href = PADDLE_CONFIG.botUrl + '?start=activate';
+        }, 2000);
+      } else if (data.name === 'checkout.closed') {
+        // User closed the checkout
+        showError('Checkout was cancelled. Use /upgrade in the Telegram bot to try again.');
+      } else if (data.name === 'checkout.error') {
+        showError('Checkout error. Please try again using /upgrade in the Telegram bot.');
+      }
     }
-    try {
-      Paddle.Checkout.open({
-        items: [{ priceId: planConfig.priceId, quantity: 1 }],
-        customData: {
-          telegramId: telegramId,
-          plan: plan,
-          reference: reference,
-          source: 'bot_checkout_page'
-        }
-      });
-    } catch (e) {
-      showError('Failed to open checkout: ' + (e.message || e));
-    }
-  }
+  });
 
-  // Validate plan first
-  if (!plan || !PADDLE_CONFIG.plans[plan]) {
-    showError('Invalid plan. Please use /upgrade in the Telegram bot to get a valid checkout link.');
-  } else {
-    // Initialize Paddle
-    Paddle.Initialize({
-      token: PADDLE_CONFIG.clientToken,
-      environment: PADDLE_CONFIG.environment
-    });
+  // Fallback: if no _ptxn parameter, check for plan param (direct link mode)
+  var params = new URLSearchParams(window.location.search);
+  var txnId = params.get('_ptxn');
+  var plan = params.get('plan');
 
-    // Wait 2 seconds for Paddle to fully initialize, then open checkout.
-    var planConfig = PADDLE_CONFIG.plans[plan];
-    setTimeout(function() {
-      console.log('Opening Paddle checkout for plan:', plan, 'priceId:', planConfig.priceId);
-      try {
+  if (!txnId && plan) {
+    // No transaction ID but plan is specified — open checkout directly by price ID
+    var priceIds = {
+      freelancer: 'pri_01kxfzms96hf32fhex7r61p7nd',
+      marketing_pro: 'pri_01kxfzthwv0dddcbvvntpy42k0'
+    };
+    var priceId = priceIds[plan];
+    if (priceId) {
+      setTimeout(function() {
         Paddle.Checkout.open({
-          items: [{ priceId: planConfig.priceId, quantity: 1 }],
+          items: [{ priceId: priceId, quantity: 1 }],
           customData: {
-            telegramId: telegramId,
+            telegramId: params.get('tg') || 'unknown',
             plan: plan,
-            reference: reference,
-            source: 'bot_checkout_page'
+            reference: params.get('ref') || ('direct_' + Date.now())
           }
         });
-        console.log('Paddle.Checkout.open called successfully');
-      } catch (e) {
-        console.error('Paddle.Checkout.open error:', e);
-        showError('Failed to open checkout: ' + (e.message || e));
-      }
-    }, 2000);
+      }, 2000);
+    } else {
+      showError('Invalid plan. Use /upgrade in the Telegram bot.');
+    }
   }
+
+  // If _ptxn IS present, Paddle.js handles it automatically — nothing more to do.
+  // The checkout overlay will open on its own.
 </script>
 </body>
 </html>
