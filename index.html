@@ -403,7 +403,7 @@
 <!-- Pricing Section -->
 <section class="py-[160px] px-6 md:px-8 max-w-container mx-auto" id="pricing">
 <div class="text-center mb-16 reveal">
-<span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container text-label-md text-on-surface-variant mb-6"><span class="material-symbols-outlined text-base text-primary">credit_card</span> Secure checkout by Lemon Squeezy</span>
+<span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container text-label-md text-on-surface-variant mb-6"><span class="material-symbols-outlined text-base text-primary">credit_card</span> Secure checkout by Paddle</span>
 <h2 class="font-headline-lg-mobile md:font-headline-lg text-primary mb-4">Simple, Transparent Pricing</h2>
 <p class="font-body-lg text-body-lg text-on-surface-variant">Start for free, upgrade when you need more research power. Cancel anytime.</p>
 </div>
@@ -472,13 +472,13 @@ Start Researcher — $5/mo
 <div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-lg mb-4 mx-auto">1</div>
 <span class="material-symbols-outlined text-3xl text-primary mb-3">credit_card</span>
 <h4 class="font-label-md text-label-md text-primary font-bold mb-2">Choose a Plan</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">Select the research plan that fits your needs. A secure Lemon Squeezy checkout opens right on this page.</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Select the research plan that fits your needs. A secure Paddle checkout opens right on this page.</p>
 </div>
 <div class="bg-surface rounded-2xl p-6 reveal text-center">
 <div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-lg mb-4 mx-auto">2</div>
 <span class="material-symbols-outlined text-3xl text-primary mb-3">lock</span>
 <h4 class="font-label-md text-label-md text-primary font-bold mb-2">Pay Securely</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">Card, Apple Pay, or Google Pay. Your payment is processed by Lemon Squeezy — we never see your card details.</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Card, Apple Pay, or Google Pay. Your payment is processed by Paddle — we never see your card details.</p>
 </div>
 <div class="bg-surface rounded-2xl p-6 reveal text-center">
 <div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-lg mb-4 mx-auto">3</div>
@@ -556,21 +556,21 @@ Start Researcher — $5/mo
 <span>Is my payment information safe?</span>
 <span class="material-symbols-outlined text-primary transition-transform duration-300 group-open:rotate-180">expand_more</span>
 </summary>
-<p class="font-body-md text-body-md text-on-surface-variant mt-4">Yes. All payments are processed by Lemon Squeezy, a PCI-DSS compliant payment platform. LeadOS never sees, touches, or stores your card details. Your payment is protected by industry-standard encryption and 3-D Secure.</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4">Yes. All payments are processed by Paddle, a PCI-DSS compliant Merchant of Record. LeadOS never sees, touches, or stores your card details. Your payment is protected by industry-standard encryption and 3-D Secure.</p>
 </details>
 <details class="group bg-surface-container rounded-2xl p-6 reveal cursor-pointer border border-outline-variant/20">
 <summary class="flex items-center justify-between font-headline-md text-headline-md text-primary list-none">
 <span>Can I cancel my subscription anytime?</span>
 <span class="material-symbols-outlined text-primary transition-transform duration-300 group-open:rotate-180">expand_more</span>
 </summary>
-<p class="font-body-md text-body-md text-on-surface-variant mt-4">Absolutely. Cancel anytime directly from Lemon Squeezy's customer portal or via the LeadOS workspace. You keep access until the end of your billing period — no questions asked, no cancellation fees. See our <a href="refund-policy.html" class="text-primary underline">Refund Policy</a> for details.</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4">Absolutely. Cancel anytime directly from Paddle's customer portal or via the LeadOS workspace. You keep access until the end of your billing period — no questions asked, no cancellation fees. See our <a href="refund-policy.html" class="text-primary underline">Refund Policy</a> for details.</p>
 </details>
 <details class="group bg-surface-container rounded-2xl p-6 reveal cursor-pointer border border-outline-variant/20">
 <summary class="flex items-center justify-between font-headline-md text-headline-md text-primary list-none">
 <span>What payment methods do you support?</span>
 <span class="material-symbols-outlined text-primary transition-transform duration-300 group-open:rotate-180">expand_more</span>
 </summary>
-<p class="font-body-md text-body-md text-on-surface-variant mt-4">Via Lemon Squeezy we accept Visa, Mastercard, American Express, Apple Pay, and Google Pay. Regional methods (Razorpay for India) are also supported inside the workspace. All prices are in USD.</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4">Via Paddle we accept Visa, Mastercard, American Express, Apple Pay, and Google Pay. Paddle also handles local payment methods and tax compliance globally. All prices are in USD.</p>
 </details>
 <details class="group bg-surface-container rounded-2xl p-6 reveal cursor-pointer border border-outline-variant/20">
 <summary class="flex items-center justify-between font-headline-md text-headline-md text-primary list-none">
@@ -640,40 +640,100 @@ Start Researcher — $5/mo
 <p class="font-body-md text-body-md text-on-tertiary/60 text-center">© 2026 LeadOS. All rights reserved. AI Workspace for Business Research.</p>
 </div>
 </footer>
-<!-- Lemon Squeezy Checkout Config -->
+<!-- Paddle Checkout Config -->
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <script>
-  window.LEADOS_LS = {
-    enabled: false,
-    store: 'leados',
+  // =================================================================
+  //  LEADOS — PADDLE CHECKOUT CONFIG
+  //  =================================================================
+  //  To go live, set enabled=true and paste your real Price IDs below.
+  //  Get them from: Paddle Dashboard → Catalog → Products → your product →
+  //  Pricing → copy the Price ID (starts with pri_).
+  //
+  //  Also set PADDLE_CLIENT_TOKEN to your client-side token (Paddle Dashboard →
+  //  Developer Tools → Authentication).
+  //  =================================================================
+  window.LEADOS_PADDLE = {
+    enabled: false,            // set to true once you paste real Price IDs below
+    clientToken: 'YOUR_PADDLE_CLIENT_TOKEN_HERE', // PADDLE_CLIENT_TOKEN env var
+    environment: 'sandbox',    // 'sandbox' or 'production'
     botUrl: 'https://t.me/LeadOS_CoBot',
     successRedirect: 'https://t.me/LeadOS_CoBot?start=activate',
     plans: {
-      freelancer: { name: 'Researcher', price: 5, checkoutUrl: '' },
-      marketing_pro: { name: 'Pro Research', price: 49, checkoutUrl: '' },
+      freelancer: {
+        name: 'Researcher',
+        price: 5,
+        priceId: 'YOUR_PRICE_ID_FREELANCER',  // pri_xxx from Paddle dashboard
+      },
+      marketing_pro: {
+        name: 'Pro Research',
+        price: 49,
+        priceId: 'YOUR_PRICE_ID_PRO',  // pri_xxx from Paddle dashboard
+      },
     },
   };
+
+  // Initialize Paddle.js
+  if (window.Paddle) {
+    Paddle.Initialize({
+      token: window.LEADOS_PADDLE.clientToken,
+      environment: window.LEADOS_PADDLE.environment,
+    });
+  }
+
+  // Generate a unique activation reference for each checkout.
   function generateReference(plan) {
     var ts = Date.now().toString(36);
     var rand = Math.random().toString(36).slice(2, 8);
-    return 'leados_' + plan + '_' + ts + rand;
+    return 'paddle_' + plan + '_' + ts + rand;
   }
+
+  // Open the Paddle overlay checkout for a plan.
   function openCheckout(plan) {
-    var cfg = window.LEADOS_LS;
-    if (!cfg || !cfg.enabled || !cfg.plans[plan] || !cfg.plans[plan].checkoutUrl) {
+    var cfg = window.LEADOS_PADDLE;
+    if (!cfg || !cfg.enabled || !cfg.plans[plan] || cfg.plans[plan].priceId === 'YOUR_PRICE_ID_' + plan.toUpperCase()) {
+      // Not configured yet — fall back to the bot
       var msg = 'Online checkout is coming soon.\n\nFor now, please upgrade inside the Telegram workspace using /upgrade.';
       alert(msg);
-      setTimeout(function () { window.open(cfg.botUrl + '?start=upgrade_' + plan, '_blank'); }, 600);
+      setTimeout(function () {
+        window.open(cfg.botUrl + '?start=upgrade_' + plan, '_blank');
+      }, 600);
       return;
     }
+
     var reference = generateReference(plan);
-    var url = cfg.plans[plan].checkoutUrl;
-    var sep = url.indexOf('?') === -1 ? '?' : '&';
-    url += sep + 'checkout[custom][reference]=' + encodeURIComponent(reference);
-    url += '&checkout[custom][source]=landing';
-    url += '&checkout[custom][plan]=' + encodeURIComponent(plan);
-    url += '&checkout[redirect_url]=' + encodeURIComponent(cfg.successRedirect + '_' + reference);
-    try { window.LemonSqueezy.Url.Open(url); } catch (e) { window.open(url, '_blank'); }
+    var planCfg = cfg.plans[plan];
+
+    try {
+      Paddle.Checkout.open({
+        items: [{ priceId: planCfg.priceId, quantity: 1 }],
+        customData: {
+          telegramId: 'landing_visitor',
+          plan: plan,
+          reference: reference,
+          source: 'landing_page',
+        },
+        settings: {
+          successUrl: cfg.successRedirect + '_' + reference,
+          theme: 'light',
+        },
+        successCallback: function (data) {
+          // Payment successful — redirect to bot with reference
+          setTimeout(function () {
+            window.location.href = cfg.successRedirect + '_' + reference;
+          }, 800);
+        },
+        closeCallback: function () {
+          // User closed without completing — do nothing
+        },
+      });
+    } catch (e) {
+      // Fallback: open hosted checkout URL in a new tab
+      window.open(cfg.botUrl + '?start=upgrade_' + plan, '_blank');
+    }
   }
+
+  // Wire up the checkout buttons.
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('[data-ls-checkout]');
     if (!btn) return;
@@ -681,7 +741,6 @@ Start Researcher — $5/mo
     openCheckout(btn.getAttribute('data-ls-checkout'));
   });
 </script>
-<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
 <!-- Scroll Reveal Script -->
 <script>
         document.addEventListener('DOMContentLoaded', () => {
