@@ -96,47 +96,53 @@
 
     const planConfig = PADDLE_CONFIG.plans[plan];
 
+    // Show the actual error message
+    function showError(msg) {
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('error').classList.remove('hidden');
+      document.getElementById('error-message').textContent = msg;
+    }
+
     // Open the Paddle checkout overlay
-    Paddle.Checkout.open({
-      items: [{ priceId: planConfig.priceId, quantity: 1 }],
-      customData: {
-        telegramId: telegramId,
-        plan: plan,
-        reference: reference,
-        source: 'bot_checkout_page',
-      },
-      settings: {
-        successUrl: PADDLE_CONFIG.successRedirect + '_' + reference,
-        theme: 'light',
-        displayMode: 'overlay',
-      },
-      successCallback: function(data) {
-        // Payment successful — show success state, then redirect
-        document.getElementById('loading').classList.add('hidden');
-        document.getElementById('success').classList.remove('hidden');
-        const successLink = document.getElementById('success-link');
-        successLink.href = PADDLE_CONFIG.successRedirect + '_' + reference;
-        // Auto-redirect after 2 seconds
-        setTimeout(function() {
-          window.location.href = PADDLE_CONFIG.successRedirect + '_' + reference;
-        }, 2000);
-      },
-      closeCallback: function() {
-        // User closed the checkout without completing
-        document.getElementById('loading').classList.add('hidden');
-        document.getElementById('error').classList.remove('hidden');
-        document.getElementById('error-message').textContent = 'Checkout was cancelled. You can try again anytime using /upgrade in the Telegram bot.';
-      },
-      eventCallback: function(data) {
-        // Log events for debugging
-        console.log('Paddle event:', data.name);
-        if (data.name === 'checkout.error') {
+    try {
+      Paddle.Checkout.open({
+        items: [{ priceId: planConfig.priceId, quantity: 1 }],
+        customData: {
+          telegramId: telegramId,
+          plan: plan,
+          reference: reference,
+          source: 'bot_checkout_page',
+        },
+        settings: {
+          successUrl: PADDLE_CONFIG.successRedirect + '_' + reference,
+          theme: 'light',
+        },
+        successCallback: function(data) {
+          // Payment successful — show success state, then redirect
           document.getElementById('loading').classList.add('hidden');
-          document.getElementById('error').classList.remove('hidden');
-          document.getElementById('error-message').textContent = 'Checkout error: ' + (data.data || 'Please try again.');
-        }
-      },
-    });
+          document.getElementById('success').classList.remove('hidden');
+          const successLink = document.getElementById('success-link');
+          successLink.href = PADDLE_CONFIG.successRedirect + '_' + reference;
+          // Auto-redirect after 2 seconds
+          setTimeout(function() {
+            window.location.href = PADDLE_CONFIG.successRedirect + '_' + reference;
+          }, 2000);
+        },
+        closeCallback: function() {
+          // User closed the checkout without completing
+          showError('Checkout was cancelled. You can try again anytime using /upgrade in the Telegram bot.');
+        },
+        eventCallback: function(data) {
+          console.log('Paddle event:', data.name, data.data);
+          if (data.name === 'checkout.error') {
+            var errMsg = data.data?.error?.message || data.data?.message || JSON.stringify(data.data);
+            showError('Checkout error: ' + errMsg);
+          }
+        },
+      });
+    } catch (e) {
+      showError('Failed to open checkout: ' + (e.message || e));
+    }
   }
 </script>
 </body>
