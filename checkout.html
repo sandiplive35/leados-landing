@@ -102,9 +102,25 @@
     });
 
     // Wait 2 seconds for Paddle to fully initialize, then open checkout.
-    // Paddle.Initialize() is async and needs time to complete even if
-    // Paddle.Initialized appears true from a previous page load.
-    setTimeout(openCheckout, 2000);
+    var planConfig = PADDLE_CONFIG.plans[plan];
+    setTimeout(function() {
+      console.log('Opening Paddle checkout for plan:', plan, 'priceId:', planConfig.priceId);
+      try {
+        Paddle.Checkout.open({
+          items: [{ priceId: planConfig.priceId, quantity: 1 }],
+          customData: {
+            telegramId: telegramId,
+            plan: plan,
+            reference: reference,
+            source: 'bot_checkout_page'
+          }
+        });
+        console.log('Paddle.Checkout.open called successfully');
+      } catch (e) {
+        console.error('Paddle.Checkout.open error:', e);
+        showError('Failed to open checkout: ' + (e.message || e));
+      }
+    }, 2000);
   }
 </script>
 </body>
