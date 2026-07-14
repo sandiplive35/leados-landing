@@ -11,142 +11,100 @@
   body { background-color: #fdf8f8; color: #1c1b1b; font-family: Inter, sans-serif; overflow-x: hidden; }
   .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #000; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-  .glass { background: rgba(253, 248, 248, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
 </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col items-center justify-center p-6">
 
-<!-- Loading State (shown initially) -->
 <div id="loading" class="text-center">
   <div class="spinner mx-auto mb-6"></div>
   <h1 class="text-2xl font-bold mb-2">Opening Secure Checkout...</h1>
   <p class="text-gray-600">You'll be redirected to Paddle's secure payment page.</p>
 </div>
 
-<!-- Error State (hidden initially) -->
 <div id="error" class="hidden text-center max-w-md">
   <div class="bg-red-50 border border-red-200 rounded-2xl p-8">
     <span class="material-symbols-outlined text-5xl text-red-500 mb-4">error</span>
     <h1 class="text-xl font-bold text-red-900 mb-2">Checkout Error</h1>
     <p id="error-message" class="text-red-700 mb-6">Something went wrong.</p>
-    <a href="https://t.me/LeadOS_CoBot" target="_blank" class="inline-block bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors">
-      Open Telegram Bot
-    </a>
+    <a href="https://t.me/LeadOS_CoBot" target="_blank" class="inline-block bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors">Open Telegram Bot</a>
   </div>
 </div>
 
-<!-- Success State (hidden initially, shown after payment) -->
 <div id="success" class="hidden text-center max-w-md">
   <div class="bg-green-50 border border-green-200 rounded-2xl p-8">
     <span class="material-symbols-outlined text-5xl text-green-600 mb-4" style="font-variation-settings: 'FILL' 1;">check_circle</span>
     <h1 class="text-xl font-bold text-green-900 mb-2">Payment Successful!</h1>
     <p class="text-green-700 mb-6">Your plan has been activated. Redirecting you to the bot...</p>
-    <a id="success-link" href="https://t.me/LeadOS_CoBot" target="_blank" class="inline-block bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors">
-      Open LeadOS Bot
-    </a>
+    <a id="success-link" href="https://t.me/LeadOS_CoBot" target="_blank" class="inline-block bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors">Open LeadOS Bot</a>
   </div>
 </div>
 
-<!-- Paddle.js -->
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <script>
   // =================================================================
   //  LEADOS CHECKOUT PAGE
-  //  Reads plan + reference from URL query params, opens Paddle overlay.
   //  Bot sends: /checkout.html?plan=freelancer&reference=xxx&tg=12345
+  //  This page opens the Paddle.js overlay checkout.
   // =================================================================
 
-  // Paddle config (same as landing page)
-  const PADDLE_CONFIG = {
+  var PADDLE_CONFIG = {
     clientToken: 'live_abe44b07b980b548ce8dba106cb',
     environment: 'production',
     botUrl: 'https://t.me/LeadOS_CoBot',
     successRedirect: 'https://t.me/LeadOS_CoBot?start=activate',
     plans: {
-      freelancer: {
-        name: 'Researcher',
-        price: 5,
-        priceId: 'pri_01kxfzms96hf32fhex7r61p7nd',
-      },
-      marketing_pro: {
-        name: 'Pro Research',
-        price: 49,
-        priceId: 'pri_01kxfzthwv0dddcbvvntpy42k0',
-      },
-    },
+      freelancer: { name: 'Researcher', price: 5, priceId: 'pri_01kxfzms96hf32fhex7r61p7nd' },
+      marketing_pro: { name: 'Pro Research', price: 49, priceId: 'pri_01kxfzthwv0dddcbvvntpy42k0' }
+    }
   };
 
-  // Get plan + reference from URL
-  const params = new URLSearchParams(window.location.search);
-  const plan = params.get('plan') || params.get('p');
-  const reference = params.get('reference') || params.get('ref') || 'paddle_' + plan + '_' + Date.now().toString(36);
-  const telegramId = params.get('tg') || params.get('telegram_id') || 'unknown';
+  // Read plan + reference from URL
+  var params = new URLSearchParams(window.location.search);
+  var plan = params.get('plan') || params.get('p');
+  var reference = params.get('reference') || params.get('ref') || ('paddle_' + plan + '_' + Date.now().toString(36));
+  var telegramId = params.get('tg') || params.get('telegram_id') || 'unknown';
 
-  // Validate plan
-  if (!plan || !PADDLE_CONFIG.plans[plan]) {
+  function showError(msg) {
     document.getElementById('loading').classList.add('hidden');
     document.getElementById('error').classList.remove('hidden');
-    document.getElementById('error-message').textContent = 'Invalid plan. Please use /upgrade in the Telegram bot to get a valid checkout link.';
+    document.getElementById('error-message').textContent = msg;
+  }
+
+  function openCheckout() {
+    var planConfig = PADDLE_CONFIG.plans[plan];
+    if (!planConfig) {
+      showError('Invalid plan. Use /upgrade in the Telegram bot.');
+      return;
+    }
+    try {
+      Paddle.Checkout.open({
+        items: [{ priceId: planConfig.priceId, quantity: 1 }],
+        customData: {
+          telegramId: telegramId,
+          plan: plan,
+          reference: reference,
+          source: 'bot_checkout_page'
+        }
+      });
+    } catch (e) {
+      showError('Failed to open checkout: ' + (e.message || e));
+    }
+  }
+
+  // Validate plan first
+  if (!plan || !PADDLE_CONFIG.plans[plan]) {
+    showError('Invalid plan. Please use /upgrade in the Telegram bot to get a valid checkout link.');
   } else {
     // Initialize Paddle
     Paddle.Initialize({
       token: PADDLE_CONFIG.clientToken,
-      environment: PADDLE_CONFIG.environment,
+      environment: PADDLE_CONFIG.environment
     });
 
-    const planConfig = PADDLE_CONFIG.plans[plan];
-
-    // Show the actual error message
-    function showError(msg) {
-      document.getElementById('loading').classList.add('hidden');
-      document.getElementById('error').classList.remove('hidden');
-      document.getElementById('error-message').textContent = msg;
-    }
-
-    // Open the Paddle checkout overlay (with retry until Paddle is ready)
-    function openCheckout() {
-      try {
-        // Simple call — matches Paddle.js docs exactly. No settings/callbacks
-        // that could cause silent failures. Success is handled by the webhook.
-        Paddle.Checkout.open({
-          items: [{ priceId: planConfig.priceId, quantity: 1 }],
-          customData: {
-            telegramId: telegramId,
-            plan: plan,
-            reference: reference,
-            source: 'bot_checkout_page',
-          },
-        });
-        // Hide loading state after 2 seconds (checkout overlay should be visible by then)
-        setTimeout(function() {
-          if (!document.getElementById('error').classList.contains('hidden')) return;
-          if (!document.getElementById('success').classList.contains('hidden')) return;
-          // If no iframe is visible after 2s, show error
-          if (document.querySelectorAll('iframe').length === 0) {
-            showError('Checkout failed to load. Please try again using /upgrade in the Telegram bot.');
-          }
-        }, 3000);
-      } catch (e) {
-        showError('Failed to open checkout: ' + (e.message || e));
-      }
-    }
-
-    // Wait for Paddle to be fully initialized before opening checkout.
-    // Paddle.Initialize() is async. Even if Paddle.Initialized is true immediately
-    // (from a previous page load), we need to wait for the new Initialize() call to complete.
-    function waitForPaddle(attempt) {
-      attempt = attempt || 0;
-      // Always wait at least 1.5 seconds (3 attempts) before opening checkout
-      if (attempt < 3) {
-        setTimeout(function() { waitForPaddle(attempt + 1); }, 500);
-        return;
-      }
-      // After 1.5s, try to open checkout
-      openCheckout();
-    }
-
-    // Start waiting for Paddle to be ready
-    waitForPaddle();
+    // Wait 2 seconds for Paddle to fully initialize, then open checkout.
+    // Paddle.Initialize() is async and needs time to complete even if
+    // Paddle.Initialized appears true from a previous page load.
+    setTimeout(openCheckout, 2000);
   }
 </script>
 </body>
