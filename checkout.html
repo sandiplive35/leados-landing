@@ -132,20 +132,17 @@
     }
 
     // Wait for Paddle to be fully initialized before opening checkout.
-    // Paddle.Initialize() is async — Paddle.Initialized becomes true when ready.
+    // Paddle.Initialize() is async. Even if Paddle.Initialized is true immediately
+    // (from a previous page load), we need to wait for the new Initialize() call to complete.
     function waitForPaddle(attempt) {
       attempt = attempt || 0;
-      if (attempt > 20) {
-        // 10 seconds elapsed — try anyway
-        openCheckout();
+      // Always wait at least 1.5 seconds (3 attempts) before opening checkout
+      if (attempt < 3) {
+        setTimeout(function() { waitForPaddle(attempt + 1); }, 500);
         return;
       }
-      // Check if Paddle is initialized (Paddle.Initialized is a boolean property)
-      if (typeof Paddle !== 'undefined' && Paddle.Initialized) {
-        openCheckout();
-      } else {
-        setTimeout(function() { waitForPaddle(attempt + 1); }, 500);
-      }
+      // After 1.5s, try to open checkout
+      openCheckout();
     }
 
     // Start waiting for Paddle to be ready
