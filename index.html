@@ -193,25 +193,25 @@
                 </a>
 </div>
 </div>
-<!-- Floating Phones -->
-<div class="relative w-full max-w-5xl mx-auto mt-24 h-[600px] hidden md:block reveal">
-<!-- Left Phone (AI Research Dashboard) -->
-<div class="absolute left-0 top-12 w-[280px] h-[580px] rounded-[2.5rem] bg-surface border-8 border-tertiary-container phone-shadow overflow-hidden transform -rotate-6 animate-float-delayed z-10">
-<img class="w-full h-full object-cover" alt="LeadOS AI research workspace dashboard showing account overview and research tools." src="./images/hero-dashboard.jpg"/>
+<!-- Decorative Icon Grid (replaces phone mockups) -->
+<div class="relative w-full max-w-4xl mx-auto mt-24 reveal">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+<div class="bg-surface-container rounded-3xl p-8 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined text-5xl text-primary mb-3" style="font-variation-settings: 'FILL' 1;">business</span>
+<p class="font-label-md text-label-md text-on-surface-variant">Business<br/>Profiles</p>
 </div>
-<!-- Center Phone (Welcome) -->
-<div class="absolute left-1/2 -translate-x-1/2 top-0 w-[320px] h-[650px] rounded-[3rem] bg-surface border-[10px] border-tertiary-container phone-shadow overflow-hidden animate-float z-30">
-<img class="w-full h-full object-cover" alt="LeadOS welcome screen introducing the AI business research assistant." src="./images/hero-start-bot.jpg"/>
+<div class="bg-surface-container rounded-3xl p-8 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined text-5xl text-primary mb-3" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<p class="font-label-md text-label-md text-on-surface-variant">AI<br/>Summaries</p>
 </div>
-<!-- Right Phone (AI Analysis) -->
-<div class="absolute right-0 top-20 w-[280px] h-[580px] rounded-[2.5rem] bg-surface border-8 border-tertiary-container phone-shadow overflow-hidden transform rotate-6 animate-float-slow z-20">
-<img class="w-full h-full object-cover" alt="LeadOS AI analysis workspace showing business research and insights." src="./images/hero-dashboard.jpg"/>
+<div class="bg-surface-container rounded-3xl p-8 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined text-5xl text-primary mb-3" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<p class="font-label-md text-label-md text-on-surface-variant">Market<br/>Insights</p>
 </div>
+<div class="bg-surface-container rounded-3xl p-8 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined text-5xl text-primary mb-3" style="font-variation-settings: 'FILL' 1;">sticky_note_2</span>
+<p class="font-label-md text-label-md text-on-surface-variant">Research<br/>Notes</p>
 </div>
-<!-- Mobile Fallback Image -->
-<div class="mt-16 w-full max-w-sm mx-auto md:hidden reveal">
-<div class="w-full h-[600px] rounded-[3rem] bg-surface border-[8px] border-tertiary-container phone-shadow overflow-hidden relative">
-<img class="w-full h-full object-cover" alt="LeadOS AI research workspace on a smartphone showing research tools and insights." src="./images/hero-dashboard.jpg"/>
 </div>
 </div>
 </section>
@@ -255,13 +255,10 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
 <!-- Card 1 -->
 <div class="col-span-1 md:col-span-2 row-span-1 bg-surface-container rounded-3xl p-8 relative overflow-hidden group reveal">
-<div class="relative z-10 w-full md:w-1/2">
+<div class="relative z-10 w-full">
 <span class="material-symbols-outlined text-3xl mb-4 text-primary">business</span>
 <h3 class="font-headline-md text-headline-md text-primary mb-2">Business Research</h3>
 <p class="font-body-md text-body-md text-on-surface-variant">Analyze publicly available information about businesses using official APIs. View company profiles, ratings, descriptions, and public details all in one place.</p>
-</div>
-<div class="absolute right-0 top-0 bottom-0 w-1/2 hidden md:block opacity-20 group-hover:opacity-40 transition-opacity duration-500">
-<div class="bg-cover bg-center w-full h-full" alt="LeadOS research workspace showing business analysis." style="background-image: url('./images/hero-dashboard.jpg')"></div>
 </div>
 </div>
 <!-- Card 2 -->
@@ -272,12 +269,18 @@
 <p class="font-body-md text-body-md text-on-surface-variant">Generate AI summaries of any company.</p>
 </div>
 </div>
-<!-- Card 3 (Image focus) -->
-<div class="col-span-1 row-span-2 bg-surface-container rounded-3xl p-0 relative overflow-hidden reveal">
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 flex items-end p-8">
-<h3 class="font-headline-md text-headline-md text-on-primary">Business Intelligence</h3>
+<!-- Card 3 (Feature focus) -->
+<div class="col-span-1 row-span-2 bg-gradient-to-br from-primary to-tertiary-container text-on-primary rounded-3xl p-8 relative overflow-hidden reveal flex flex-col justify-between">
+<span class="material-symbols-outlined text-5xl mb-4 text-on-primary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-primary mb-3">Business Intelligence</h3>
+<p class="font-body-md text-body-md text-on-primary/80">Surface patterns, track metrics, and understand market trends with AI-powered analysis of public business data.</p>
 </div>
-<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" alt="LeadOS business intelligence dashboard showing AI analysis and research insights." src="./images/hero-dashboard.jpg"/>
+<div class="flex gap-2 mt-4">
+<span class="px-3 py-1 rounded-full bg-on-primary/10 text-on-primary text-xs font-medium">Trends</span>
+<span class="px-3 py-1 rounded-full bg-on-primary/10 text-on-primary text-xs font-medium">Metrics</span>
+<span class="px-3 py-1 rounded-full bg-on-primary/10 text-on-primary text-xs font-medium">Reports</span>
+</div>
 </div>
 <!-- Card 4 -->
 <div class="col-span-1 row-span-1 bg-surface-container rounded-3xl p-8 reveal">
@@ -330,25 +333,36 @@
 </li>
 </ul>
 </div>
-<!-- Floating Devices Composition -->
-<div class="relative h-[600px] hidden lg:block perspective-1000">
-<!-- Main Device -->
-<div class="absolute right-20 top-0 w-[300px] h-[600px] rounded-[3rem] bg-surface border-[10px] border-tertiary-container phone-shadow overflow-hidden z-20 animate-float">
-<img class="w-full h-full object-cover" alt="LeadOS research workspace showing AI analysis and business insights on a smartphone." src="./images/hero-dashboard.jpg"/>
+<!-- Visual Feature Highlights (replaces device mockups) -->
+<div class="reveal">
+<div class="bg-surface-container rounded-3xl p-8 space-y-4">
+<div class="flex items-start gap-4 p-4 bg-surface rounded-2xl">
+<div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">smart_toy</span>
 </div>
-<!-- Secondary Device Bottom Left -->
-<div class="absolute right-[280px] bottom-10 w-[220px] h-[450px] rounded-[2.5rem] bg-surface border-8 border-tertiary-container phone-shadow overflow-hidden z-30 transform -rotate-12 translate-z-12 animate-float-delayed">
-<img class="w-full h-full object-cover" alt="LeadOS AI assistant welcome screen for business research." src="./images/hero-start-bot.jpg"/>
-</div>
-<!-- Tertiary Device Top Right -->
-<div class="absolute -right-10 top-20 w-[200px] h-[400px] rounded-[2rem] bg-surface border-[6px] border-tertiary-container phone-shadow overflow-hidden z-10 transform rotate-6 animate-float-slow opacity-80">
-<img class="w-full h-full object-cover" alt="LeadOS research workspace showing business analysis tools." src="./images/hero-dashboard.jpg"/>
+<div>
+<h4 class="font-label-md text-label-md text-primary font-bold mb-1">Ask Anything</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">“Summarize this company's public profile” — get instant AI answers.</p>
 </div>
 </div>
-<!-- Mobile Fallback -->
-<div class="w-full max-w-sm mx-auto lg:hidden reveal mt-8">
-<div class="w-full h-[500px] rounded-[3rem] bg-surface border-[8px] border-tertiary-container phone-shadow overflow-hidden relative">
-<img class="w-full h-full object-cover" alt="LeadOS AI research workspace on a smartphone." src="./images/hero-dashboard.jpg"/>
+<div class="flex items-start gap-4 p-4 bg-surface rounded-2xl">
+<div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">compare_arrows</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary font-bold mb-1">Compare Companies</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Side-by-side analysis of two businesses with AI-generated insights.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-4 bg-surface rounded-2xl">
+<div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary font-bold mb-1">Auto-Summarize</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Generate concise research summaries from public business information.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -365,30 +379,24 @@
 <div class="hidden md:block absolute top-1/2 left-[10%] right-[10%] h-0.5 bg-outline-variant/30 -translate-y-1/2 z-0"></div>
 <!-- Step 1 -->
 <div class="relative z-10 bg-surface rounded-3xl p-8 border border-outline-variant/20 shadow-sm reveal flex flex-col items-center text-center">
-<div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xl mb-6">1</div>
+<div class="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xl mb-6">1</div>
+<span class="material-symbols-outlined text-5xl text-primary mb-4" style="font-variation-settings: 'FILL' 1;">database</span>
 <h3 class="font-headline-md text-headline-md text-primary mb-4 text-xl">Choose a Source</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6">Select from supported public business directories and official APIs to begin your research.</p>
-<div class="w-full h-32 bg-surface-container rounded-xl overflow-hidden border border-outline-variant/20">
-<img class="w-full h-full object-cover object-top opacity-80" alt="LeadOS workspace showing available research sources." src="./images/choose-source.jpg"/>
-</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Select from supported public business directories and official APIs to begin your research.</p>
 </div>
 <!-- Step 2 -->
 <div class="relative z-10 bg-surface rounded-3xl p-8 border border-outline-variant/20 shadow-sm reveal flex flex-col items-center text-center delay-[200ms]">
-<div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xl mb-6">2</div>
+<div class="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xl mb-6">2</div>
+<span class="material-symbols-outlined text-5xl text-primary mb-4" style="font-variation-settings: 'FILL' 1;">tune</span>
 <h3 class="font-headline-md text-headline-md text-primary mb-4 text-xl">Set Research Criteria</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6">Define what types of businesses you want to study — by category, location, or other public attributes.</p>
-<div class="w-full h-32 bg-surface-container rounded-xl overflow-hidden border border-outline-variant/20">
-<img class="w-full h-full object-cover object-center opacity-80" alt="LeadOS research criteria configuration screen." src="./images/configure-filters.jpg"/>
-</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Define what types of businesses you want to study — by category, location, or other public attributes.</p>
 </div>
 <!-- Step 3 -->
 <div class="relative z-10 bg-surface rounded-3xl p-8 border border-outline-variant/20 shadow-sm reveal flex flex-col items-center text-center delay-[400ms]">
-<div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xl mb-6">3</div>
+<div class="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xl mb-6">3</div>
+<span class="material-symbols-outlined text-5xl text-primary mb-4" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
 <h3 class="font-headline-md text-headline-md text-primary mb-4 text-xl">Analyze & Organize</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6">Get AI-generated summaries, save business profiles to your knowledge base, and organize your research.</p>
-<div class="w-full h-32 bg-surface-container rounded-xl overflow-hidden border border-outline-variant/20">
-<img class="w-full h-full object-cover object-bottom opacity-80" alt="LeadOS workspace showing organized business research and AI insights." src="./images/discover-clients.jpg"/>
-</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Get AI-generated summaries, save business profiles to your knowledge base, and organize your research.</p>
 </div>
 </div>
 </div>
