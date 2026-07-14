@@ -106,6 +106,8 @@
     // Open the Paddle checkout overlay (with retry until Paddle is ready)
     function openCheckout() {
       try {
+        // Simple call — matches Paddle.js docs exactly. No settings/callbacks
+        // that could cause silent failures. Success is handled by the webhook.
         Paddle.Checkout.open({
           items: [{ priceId: planConfig.priceId, quantity: 1 }],
           customData: {
@@ -114,30 +116,16 @@
             reference: reference,
             source: 'bot_checkout_page',
           },
-          settings: {
-            successUrl: PADDLE_CONFIG.successRedirect + '_' + reference,
-            theme: 'light',
-          },
-          successCallback: function(data) {
-            document.getElementById('loading').classList.add('hidden');
-            document.getElementById('success').classList.remove('hidden');
-            const successLink = document.getElementById('success-link');
-            successLink.href = PADDLE_CONFIG.successRedirect + '_' + reference;
-            setTimeout(function() {
-              window.location.href = PADDLE_CONFIG.successRedirect + '_' + reference;
-            }, 2000);
-          },
-          closeCallback: function() {
-            showError('Checkout was cancelled. You can try again anytime using /upgrade in the Telegram bot.');
-          },
-          eventCallback: function(data) {
-            console.log('Paddle event:', data.name, data.data);
-            if (data.name === 'checkout.error') {
-              var errMsg = (data.data && data.data.error && data.data.error.message) || (data.data && data.data.message) || JSON.stringify(data.data);
-              showError('Checkout error: ' + errMsg);
-            }
-          },
         });
+        // Hide loading state after 2 seconds (checkout overlay should be visible by then)
+        setTimeout(function() {
+          if (!document.getElementById('error').classList.contains('hidden')) return;
+          if (!document.getElementById('success').classList.contains('hidden')) return;
+          // If no iframe is visible after 2s, show error
+          if (document.querySelectorAll('iframe').length === 0) {
+            showError('Checkout failed to load. Please try again using /upgrade in the Telegram bot.');
+          }
+        }, 3000);
       } catch (e) {
         showError('Failed to open checkout: ' + (e.message || e));
       }
