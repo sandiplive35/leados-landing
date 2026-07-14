@@ -654,21 +654,21 @@ Start Researcher — $5/mo
   //  Developer Tools → Authentication).
   //  =================================================================
   window.LEADOS_PADDLE = {
-    enabled: false,            // set to true once you paste real Price IDs below
-    clientToken: 'YOUR_PADDLE_CLIENT_TOKEN_HERE', // PADDLE_CLIENT_TOKEN env var
-    environment: 'sandbox',    // 'sandbox' or 'production'
+    enabled: true,             // ✅ Paddle is configured with real price IDs
+    clientToken: 'live_abe44b07b980b548ce8dba106cb', // PADDLE_CLIENT_TOKEN (production)
+    environment: 'production', // live keys — production checkout
     botUrl: 'https://t.me/LeadOS_CoBot',
     successRedirect: 'https://t.me/LeadOS_CoBot?start=activate',
     plans: {
       freelancer: {
         name: 'Researcher',
         price: 5,
-        priceId: 'YOUR_PRICE_ID_FREELANCER',  // pri_xxx from Paddle dashboard
+        priceId: 'pri_01kxfzms96hf32fhex7r61p7nd',  // ✅ LeadOS Researcher $5/mo
       },
       marketing_pro: {
         name: 'Pro Research',
         price: 49,
-        priceId: 'YOUR_PRICE_ID_PRO',  // pri_xxx from Paddle dashboard
+        priceId: 'pri_01kxfzthwv0dddcbvvntpy42k0',  // ✅ LeadOS Pro Research $49/mo
       },
     },
   };
